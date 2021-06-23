@@ -52,6 +52,23 @@ mod crypto {
 	app_crypto!(sr25519, KEY_TYPE);
 }
 
+parameter_types! {
+	pub const AppchainId: pallet_octopus_appchain::ChainId = 3;
+	pub const Motherchain: pallet_octopus_appchain::MotherchainType = pallet_octopus_appchain::MotherchainType::NEAR;
+	pub const GracePeriod: u32 = 5;
+	pub const UnsignedPriority: u64 = 1 << 20;
+}
+
+impl pallet_octopus_appchain::Config for Runtime {
+	type Event = Event;
+	type AuthorityId = pallet_octopus_appchain::crypto::OctopusAuthId;
+	type Call = Call;
+	type AppchainId = AppchainId;
+	type Motherchain = Motherchain;
+	const RELAY_CONTRACT_NAME: &'static [u8] = b"dev-1618284355026-5339538";
+	type GracePeriod = GracePeriod;
+	type UnsignedPriority = UnsignedPriority;
+}
 /// Identity of an appchain authority.
 pub type AuthorityId = crypto::Public;
 
